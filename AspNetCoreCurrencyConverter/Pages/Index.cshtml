@@ -1,10 +1,53 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Currency converter";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <div class="text-center">
+        <h1 class="display-5">Currency Converter</h1>
+        <p>Simple way to check live foreign currency exchange rates</p>
+    </div>
+
+    <div class="shadow py-4 px-3  bg-white rounded mx-auto" style="max-width:936px">
+        <div class="container text-start">
+
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="fw-bold">Amount</label>
+                    <input class="form-control" placeholder="0.00">
+                </div>
+
+                <div class="col-sm-4">
+                    <label class="fw-bold">From</label>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>USD</option>
+                        <option value="1">RUB</option>
+                        <option value="2">EUR</option>
+                    </select>
+                </div>
+
+                <div class="col-sm-1 pt-3 text-center mt-auto">
+                    <button type="submit" class="btn btn-primary">&#x21C6;</button>
+                </div>
+
+                <div class="col-sm-4">
+                    <label class="fw-bold">To</label>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>USD</option>
+                        <option value="1">RUB</option>
+                        <option value="2">EUR</option>
+                    </select>
+                </div>
+            </div>
+ 
+            <div class="col-12 pt-3 text-end">
+                <button type="submit" class="btn btn-primary">Convert</button>
+            </div>
+
+        </div>
+    </div>
 </div>
