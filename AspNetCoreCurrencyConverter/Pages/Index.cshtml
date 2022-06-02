@@ -6,7 +6,7 @@
 
 <div class="text-center">
 
-    <div class="text-center">
+    <div class="text-center text-white mb-5">
         <h1 class="display-5">Currency Converter</h1>
         <p>Simple way to check live foreign currency exchange rates</p>
     </div>
@@ -14,14 +14,13 @@
     <div class="shadow py-4 px-3  bg-white rounded mx-auto" style="max-width:936px">
         <div class="container text-start">
 
-
-            <div class="row">
-                <div class="col-sm-3">
+            <div class="row align-items-end">
+                <div class="col-md-3">
                     <label class="fw-bold">Amount</label>
                     <input class="form-control" placeholder="0.00">
                 </div>
 
-                <div class="col-sm-4">
+                <div class="col-md-4">
                     <label class="fw-bold">From</label>
                     <select class="form-select" aria-label="Default select example">
                         <option selected>USD</option>
@@ -30,11 +29,11 @@
                     </select>
                 </div>
 
-                <div class="col-sm-1 pt-3 text-center mt-auto">
-                    <button type="submit" class="btn btn-primary">&#x21C6;</button>
+                <div class="col-md-1 py-3 py-md-0 ">
+                    <button class="btn btn-outline-secondary">&#x21C6;</button>
                 </div>
 
-                <div class="col-sm-4">
+                <div class="col-md-4">
                     <label class="fw-bold">To</label>
                     <select class="form-select" aria-label="Default select example">
                         <option selected>USD</option>
@@ -43,10 +42,33 @@
                     </select>
                 </div>
             </div>
- 
-            <div class="col-12 pt-3 text-end">
-                <button type="submit" class="btn btn-primary">Convert</button>
+
+            <div class="row">
+                <div class="col-12 pt-3">
+                    <div class="row">
+                        <span class="text-black-50">15.23 RUB = </span>
+                    </div>
+
+                    <div class="row">
+                        <span class="fs-1">
+                            240.25 USD
+                        </span>
+                    </div>
+                    <div class="row pt-3">
+                        <span class="text-black-50">1 RUB = 0.323 USD </span>
+                    </div>
+                    <div class="row">
+                        <span class="text-black-50">1 USD = 69.23 RUB </span>
+                    </div>
+                </div>
             </div>
+
+            <div class="row justify-content-end text-end">
+                <div class="col-4 pt-3 ">
+                    <button type="submit" class="btn btn-primary">Convert</button>
+                </div>
+            </div>
+
 
         </div>
     </div>
