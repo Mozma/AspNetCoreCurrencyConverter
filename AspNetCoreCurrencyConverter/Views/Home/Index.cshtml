@@ -1,5 +1,4 @@
-﻿@page
-@model IndexModel
+﻿@model HomeViewModel
 @{
     ViewData["Title"] = "Currency converter";
 }
@@ -22,11 +21,9 @@
 
                 <div class="col-md-4">
                     <label class="fw-bold">From</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>USD</option>
-                        <option value="1">RUB</option>
-                        <option value="2">EUR</option>
-                    </select>
+                    
+                    @Html.DropDownListFor(m => m.SelectedFromCurrencyId, Model.Currencies, htmlAttributes: new { @class = "form-select" })
+
                 </div>
 
                 <div class="col-md-1 py-3 py-md-0 ">
@@ -35,11 +32,9 @@
 
                 <div class="col-md-4">
                     <label class="fw-bold">To</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>USD</option>
-                        <option value="1">RUB</option>
-                        <option value="2">EUR</option>
-                    </select>
+
+                    @Html.DropDownListFor(m => m.SelectedToCurrencyId, Model.Currencies, htmlAttributes: new { @class = "form-select" })
+                    
                 </div>
             </div>
 
