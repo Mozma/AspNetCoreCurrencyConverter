@@ -29,7 +29,11 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 
-
+app.MapControllerRoute(
+    name: null,
+    pattern: "{controller}/{action}",
+    defaults: new { Controller = "Home" }
+    );
 
 app.MapControllerRoute(
     name: null,

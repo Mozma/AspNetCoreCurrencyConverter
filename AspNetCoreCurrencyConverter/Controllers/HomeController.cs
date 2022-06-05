@@ -9,24 +9,42 @@ namespace AspNetCoreCurrencyConverter.Controllers
     public class HomeController : Controller
     {
         private IExchangeRateService exchangeService;
+        private IEnumerable<SelectListItem> currencies;
 
         public HomeController(IExchangeRateService exchangeService)
         {
             this.exchangeService = exchangeService;
+            currencies = GetCurrenciesAsync().Result ?? new List<SelectListItem>();
+        }
+        public IActionResult Index()
+        {
+            return View(new HomeViewModel()
+            {
+                FromSelectedCode = "USD",
+                ToSelectedCode = "RUB",
+                Currencies = currencies
+            });
         }
 
-        public async Task<IActionResult> Index()
+        [HttpPost]
+        [Route("Swap")]
+        public IActionResult Swap(HomeViewModel model)
         {
-            return View(new HomeViewModel
+            var newModel = new HomeViewModel()
             {
-                SelectedFromCurrencyId = 0,
-                SelectedToCurrencyId = 2,
-                Currencies = await GetCurrenciesAsync()
-            });
+                FromSelectedCode = model.ToSelectedCode,
+                ToSelectedCode = model.FromSelectedCode,
+                Currencies = currencies
+            };
+
+            ModelState.Clear();
+
+            return View("Index", newModel);
         }
 
         private async Task<IEnumerable<SelectListItem>> GetCurrenciesAsync()
         {
+
             var currencies = new List<SelectListItem>();
 
             foreach (Currency currency in await exchangeService.GetCurrenciesNames())
@@ -34,7 +52,7 @@ namespace AspNetCoreCurrencyConverter.Controllers
                 currencies.Add(new SelectListItem
                 {
                     Value = currency.Code,
-                    Text = currency.Name
+                    Text = $"{currency.Code} - {currency.Name}"
                 });
             }
 

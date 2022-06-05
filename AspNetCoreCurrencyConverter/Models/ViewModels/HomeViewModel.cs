@@ -4,8 +4,8 @@ namespace AspNetCoreCurrencyConverter.ViewModels
 {
     public class HomeViewModel
     {
-        public int SelectedFromCurrencyId { get; set; } = 0;
-        public int SelectedToCurrencyId { get; set; } = 0;
+        public string FromSelectedCode { get; set; }
+        public string ToSelectedCode { get; set; }
         public IEnumerable<SelectListItem> Currencies { get; set; } = new List<SelectListItem>();
     }
 }

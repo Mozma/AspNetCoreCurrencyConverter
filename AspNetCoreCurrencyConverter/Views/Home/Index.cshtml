@@ -13,57 +13,59 @@
     <div class="shadow py-4 px-3  bg-white rounded mx-auto" style="max-width:936px">
         <div class="container text-start">
 
-            <div class="row align-items-end">
-                <div class="col-md-3">
-                    <label class="fw-bold">Amount</label>
-                    <input class="form-control" placeholder="0.00">
-                </div>
-
-                <div class="col-md-4">
-                    <label class="fw-bold">From</label>
-                    
-                    @Html.DropDownListFor(m => m.SelectedFromCurrencyId, Model.Currencies, htmlAttributes: new { @class = "form-select" })
-
-                </div>
-
-                <div class="col-md-1 py-3 py-md-0 ">
-                    <button class="btn btn-outline-secondary">&#x21C6;</button>
-                </div>
-
-                <div class="col-md-4">
-                    <label class="fw-bold">To</label>
-
-                    @Html.DropDownListFor(m => m.SelectedToCurrencyId, Model.Currencies, htmlAttributes: new { @class = "form-select" })
-                    
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-12 pt-3">
-                    <div class="row">
-                        <span class="text-black-50">15.23 RUB = </span>
+            @using (Html.BeginForm(FormMethod.Post))
+            {
+                <div class="row align-items-end">
+                    <div class="col-md-3">
+                        <label class="fw-bold">Amount</label>
+                        <input class="form-control" placeholder="0.00">
                     </div>
 
-                    <div class="row">
-                        <span class="fs-1">
-                            240.25 USD
-                        </span>
+                    <div class="col-md-4">
+                        <label class="fw-bold">From</label>
+
+                        @Html.DropDownListFor(m => m.FromSelectedCode, Model.Currencies, htmlAttributes: new { @class = "form-select" })
+
                     </div>
-                    <div class="row pt-3">
-                        <span class="text-black-50">1 RUB = 0.323 USD </span>
+
+                    <div class="col-md-1 py-3 py-md-0 ">
+                        <input type="submit" class="btn btn-outline-secondary" formaction="Swap" value="&#x21C6;">
                     </div>
-                    <div class="row">
-                        <span class="text-black-50">1 USD = 69.23 RUB </span>
+
+                    <div class="col-md-4">
+                        <label class="fw-bold">To</label>
+
+                        @Html.DropDownListFor(m => m.ToSelectedCode, Model.Currencies, htmlAttributes: new { @class = "form-select" })
+
                     </div>
                 </div>
-            </div>
 
-            <div class="row justify-content-end text-end">
-                <div class="col-4 pt-3 ">
-                    <button type="submit" class="btn btn-primary">Convert</button>
+                <div class="row">
+                    <div class="col-12 pt-3">
+                        <div class="row">
+                            <span class="text-black-50">15.23 RUB = </span>
+                        </div>
+
+                        <div class="row">
+                            <span class="fs-1">
+                                240.25 USD
+                            </span>
+                        </div>
+                        <div class="row pt-3">
+                            <span class="text-black-50">1 RUB = 0.323 USD </span>
+                        </div>
+                        <div class="row">
+                            <span class="text-black-50">1 USD = 69.23 RUB </span>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
+                <div class="row justify-content-end text-end">
+                    <div class="col-4 pt-3 ">
+                        <button type="submit" class="btn btn-primary" formaction="Convert">Convert</button>
+                    </div>
+                </div>
+            }
 
         </div>
     </div>
