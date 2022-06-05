@@ -1,7 +1,13 @@
+using CurrencyConverterCore.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddHttpClient<IExchangeRateService, ExchangeRateService>(c =>
+{
+    c.BaseAddress = new Uri("https://api.exchangerate.host/");
+});
 
 var app = builder.Build();
 
