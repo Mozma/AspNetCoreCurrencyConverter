@@ -18,7 +18,8 @@
                 <div class="row align-items-end">
                     <div class="col-md-3">
                         <label class="fw-bold">Amount</label>
-                        <input class="form-control" placeholder="0.00">
+                        <input class="form-control" name="Amount" placeholder="0.00" value="@Model.Amount">
+                        <input type="text" hidden name="Rate" value="@Model.Rate">
                     </div>
 
                     <div class="col-md-4">
@@ -43,19 +44,19 @@
                 <div class="row">
                     <div class="col-12 pt-3">
                         <div class="row">
-                            <span class="text-black-50">15.23 RUB = </span>
+                            <span class="text-black-50">@(Model.Format(Model.Amount)) @Model.FromSelectedCode = </span>
                         </div>
 
                         <div class="row">
                             <span class="fs-1">
-                                240.25 USD
+                                @(Model.Format(Math.Round(Model.Amount * Model.Rate,4))) @Model.ToSelectedCode
                             </span>
                         </div>
                         <div class="row pt-3">
-                            <span class="text-black-50">1 RUB = 0.323 USD </span>
+                            <span class="text-black-50">1 @Model.FromSelectedCode = @Model.OneUnitFromRate @Model.ToSelectedCode </span>
                         </div>
                         <div class="row">
-                            <span class="text-black-50">1 USD = 69.23 RUB </span>
+                            <span class="text-black-50">1 @Model.ToSelectedCode = @Model.OneUnitToRate @Model.FromSelectedCode </span>
                         </div>
                     </div>
                 </div>

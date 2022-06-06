@@ -20,6 +20,8 @@ namespace AspNetCoreCurrencyConverter.Controllers
         {
             return View(new HomeViewModel()
             {
+                Amount = 1,
+                Rate = 61.43,
                 FromSelectedCode = "USD",
                 ToSelectedCode = "RUB",
                 Currencies = currencies
@@ -32,6 +34,8 @@ namespace AspNetCoreCurrencyConverter.Controllers
         {
             var newModel = new HomeViewModel()
             {
+                Amount = model.Amount,
+                Rate = 1 / model.Rate,
                 FromSelectedCode = model.ToSelectedCode,
                 ToSelectedCode = model.FromSelectedCode,
                 Currencies = currencies
@@ -41,6 +45,25 @@ namespace AspNetCoreCurrencyConverter.Controllers
 
             return View("Index", newModel);
         }
+
+        [HttpPost]
+        [Route("Convert")]
+        public IActionResult Convert(HomeViewModel model)
+        {
+            var newModel = new HomeViewModel()
+            {
+                Amount = model.Amount,
+                Rate = model.Rate,
+                FromSelectedCode = model.FromSelectedCode,
+                ToSelectedCode = model.ToSelectedCode,
+                Currencies = currencies
+            };
+
+            ModelState.Clear();
+
+            return View("Index", newModel);
+        }
+
 
         private async Task<IEnumerable<SelectListItem>> GetCurrenciesAsync()
         {
