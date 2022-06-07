@@ -5,6 +5,6 @@ namespace CurrencyConverterCore.Services
     public interface IExchangeRateService
     {
         Task<List<Currency>> GetCurrenciesNames();
-        Task<string> GetCurrencyRates(string currencyCode);
+        Task<double> GetCurrencyRates(double amount, string from, string to);
     }
 }

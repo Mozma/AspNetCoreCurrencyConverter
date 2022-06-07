@@ -53,7 +53,7 @@ namespace AspNetCoreCurrencyConverter.Controllers
             var newModel = new HomeViewModel()
             {
                 Amount = model.Amount,
-                Rate = model.Rate,
+                Rate = exchangeService.GetCurrencyRates(model.Amount, model.FromSelectedCode, model.ToSelectedCode).Result,
                 FromSelectedCode = model.FromSelectedCode,
                 ToSelectedCode = model.ToSelectedCode,
                 Currencies = currencies

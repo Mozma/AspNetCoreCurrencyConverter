@@ -1,4 +1,5 @@
 ﻿using CurrencyConverterCore.Models;
+using System.Text;
 using System.Text.Json;
 
 namespace CurrencyConverterCore.Services
@@ -39,19 +40,28 @@ namespace CurrencyConverterCore.Services
         }
 
 
-        public async Task<string> GetCurrencyRates(string currencyCode)
+        public async Task<double> GetCurrencyRates(double amount, string from, string to)
         {
             //var request = new HttpRequestMessage(HttpMethod.Post,
-            //    $"https://api.exchangerate.host/latest");
+            //     $"https://openexchangerates.org/api/convert/{amount}/{from}/{to}?app_id=458db32e2d1a4181ab9f6f5f1623a8a7");
 
             //var response = await httpClient.SendAsync(request);
 
             //response.EnsureSuccessStatusCode();
 
             //using var responseStream = await response.Content.ReadAsStreamAsync();
-            //var exchangeRateResult = await JsonSerializer.DeserializeAsync<ExchangeRateResponse>(responseStream);
+            //var currenciesNamesResult = await JsonSerializer.DeserializeAsync<ExchangeRateResponse.Rootobject>(responseStream);
 
-            return "foo";
+
+            //foreach (var item in currenciesNamesResult.rates.GetType().GetProperties())
+            //{
+            //    if (item.Name.Equals(to))
+            //    {
+            //        return (double)item.GetValue(currenciesNamesResult, null);
+            //    }
+            //}
+
+            return 1;
         }
     }
 }
