@@ -49,7 +49,7 @@
 
                         <div class="row">
                             <span class="fs-1">
-                                @(Model.Format(Math.Round(Model.Amount * Model.Rate,4))) @Model.ToSelectedCode
+                                @(Model.Format(Decimal.Round(Model.Amount * (decimal)Model.Rate,4))) @Model.ToSelectedCode
                             </span>
                         </div>
                         <div class="row pt-3">

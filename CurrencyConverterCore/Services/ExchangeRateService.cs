@@ -1,6 +1,6 @@
 ﻿using CurrencyConverterCore.Models;
-using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace CurrencyConverterCore.Services
 {
@@ -12,56 +12,51 @@ namespace CurrencyConverterCore.Services
             this.httpClient = httpClient;
         }
 
-
         public async Task<List<Currency>> GetCurrenciesNames()
         {
-            var request = new HttpRequestMessage(HttpMethod.Post,
-                $"https://openexchangerates.org/api/currencies.json");
+            var url = $"https://api.exchangerate.host/symbols";
 
-            var response = await httpClient.SendAsync(request);
-
-            response.EnsureSuccessStatusCode();
-
-            using var responseStream = await response.Content.ReadAsStreamAsync();
-            var currenciesNamesResult = await JsonSerializer.DeserializeAsync<CurrenciesNamesResponse>(responseStream);
-
+            var response = await DeserializeToObjectAsync<CurrencySymbolsResponse.Rootobject>(url);
 
             var list = new List<Currency>();
-            foreach (var prop in currenciesNamesResult.GetType().GetProperties())
+            foreach (var prop in response.Symbols)
             {
                 list.Add(new Currency
                 {
-                    Code = prop.Name,
-                    Name = (string)prop.GetValue(currenciesNamesResult, null)
+                    Code = prop.Value.Code,
+                    Name = prop.Value.Description
                 });
             }
 
             return list;
         }
 
-
-        public async Task<double> GetCurrencyRates(double amount, string from, string to)
+        public async Task<double> GetCurrencyRates(decimal amount, string fromCurrency, string toCurrency)
         {
-            //var request = new HttpRequestMessage(HttpMethod.Post,
-            //     $"https://openexchangerates.org/api/convert/{amount}/{from}/{to}?app_id=458db32e2d1a4181ab9f6f5f1623a8a7");
+            var url = $"https://api.exchangerate.host/convert?from={fromCurrency}&to={toCurrency}&amount={amount}";
 
-            //var response = await httpClient.SendAsync(request);
+            var response = await DeserializeToObjectAsync<ConvertResponse.Rootobject>(url);
 
-            //response.EnsureSuccessStatusCode();
+            return response.Info.Rate;
+        }
 
-            //using var responseStream = await response.Content.ReadAsStreamAsync();
-            //var currenciesNamesResult = await JsonSerializer.DeserializeAsync<ExchangeRateResponse.Rootobject>(responseStream);
+        private async Task<T> DeserializeToObjectAsync<T>(string url)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
 
+            var response = await httpClient.SendAsync(request);
 
-            //foreach (var item in currenciesNamesResult.rates.GetType().GetProperties())
-            //{
-            //    if (item.Name.Equals(to))
-            //    {
-            //        return (double)item.GetValue(currenciesNamesResult, null);
-            //    }
-            //}
+            response.EnsureSuccessStatusCode();
 
-            return 1;
+            using var responseStream = await response.Content.ReadAsStreamAsync();
+
+            var options = new JsonSerializerOptions();
+            options.PropertyNameCaseInsensitive = true;
+            options.Converters.Add(new JsonStringEnumConverter());
+
+            var result = await JsonSerializer.DeserializeAsync<T>(responseStream, options);
+
+            return result;
         }
     }
 }

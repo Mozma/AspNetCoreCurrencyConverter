@@ -21,7 +21,7 @@ namespace AspNetCoreCurrencyConverter.Controllers
             return View(new HomeViewModel()
             {
                 Amount = 1,
-                Rate = 61.43,
+                Rate = exchangeService.GetCurrencyRates(1, "USD", "RUB").Result,
                 FromSelectedCode = "USD",
                 ToSelectedCode = "RUB",
                 Currencies = currencies
